@@ -4,9 +4,12 @@ module NamedReturn
     attr_reader :config
 
     # Wrap a method with catch DSL and pass in config.
-    def initialize(method, config)
+    def initialize(method, config, bind)
       @method = method
       @config = config
+      @callbacks = {}
+      @response = {}
+      bind(bind)
     end
 
     # Get wrapped method name.
@@ -17,13 +20,6 @@ module NamedReturn
     # DSL to add nested catch statements.
     def on(label, &block)
       @callbacks[label] = block
-    end
-
-    # Prepare for next run.
-    def reset(bind)
-      @callbacks = {}
-      @response = {}
-      bind(bind)
     end
 
     # Call the wrapped method with catches inserted by the DSL.

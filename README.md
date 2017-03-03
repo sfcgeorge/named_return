@@ -24,6 +24,10 @@ Or install it yourself as:
 
 TODO: Write usage instructions here
 
+## Thread Safety
+
+I've used this in an app that called methods simultaneously and [it blew up but then I fixed it so] it works, thus as far as I know it's threadsafe, yay!
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -32,7 +36,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/named_return.
+Bug reports and pull requests are welcome on GitHub at https://github.com/sfcgeorge/named_return.
 
 
 ## License

@@ -15,17 +15,18 @@ module NamedReturn
       return unless @wrap_method == true # not just truthy, true for reals
 
       @wrap_method = :overriding # this prevents infinite loops :P
-      wrapped_method = WrappedMethod.new meth, config
-      override_method(obj, wrapped_method, singleton)
+      override_method(obj, meth, singleton)
       @wrap_method = nil
     end
 
     private
 
-    def override_method(obj, wrapped, singleton)
+    def override_method(obj, meth, singleton)
       base = self
-      obj.send(:"define#{singleton}_method", wrapped.name) do |*args, &block|
-        wrapped.reset(self)
+      config = self.config
+      obj.send(:"define#{singleton}_method", meth.name) do |*args, &block|
+        # WrappedMethod.new needs to be here for thread safety
+        wrapped = WrappedMethod.new(meth, config, self)
         # skip the magic if test mode is on
         return wrapped.call_original(*args, &block) if base.config.test
 

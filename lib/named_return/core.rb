@@ -35,7 +35,7 @@ module NamedReturn
     end
 
     def self.included(obj)
-      proxy = Proxy.new(options || {}) # creating a closure
+      proxy = Proxy.new(**options || {}) # creating a closure
       obj.send(:define_singleton_method, :_named_return_proxy) { proxy }
       # obj.send(:private, :_named_return_proxy)
       obj.extend clone.const_get(:ClassMethods)
